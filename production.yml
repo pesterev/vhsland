@@ -1,0 +1,21 @@
+version: '3'
+services:
+  frontend:
+    build:
+      context: ./
+      dockerfile: ./ops/frontend/Dockerfile
+    volumes:
+      - ./html:/usr/share/nginx/html
+    ports:
+      - "80:80"
+  backend:
+    build:
+      context: ./
+      dockerfile: ./ops/backend/Dockerfile
+    volumes:
+      - /data/media:/data/media
+    ports:
+      - "3000:3000"
+    environment:
+      - RUST_LOG=info
+      - MEDIA_DIR=/data/media
